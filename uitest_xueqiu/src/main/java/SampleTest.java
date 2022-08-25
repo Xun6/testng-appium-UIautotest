@@ -10,6 +10,8 @@ import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class SampleTest {
@@ -17,18 +19,15 @@ public class SampleTest {
 
     @BeforeTest
     public void setUp() throws MalformedURLException {
+        // TODO DesiredCapabilities对象已过时不建议使用，
+        //  详情见：https://github.com/appium/java-client/blob/master/docs/v7-to-v8-migration-guide.md
         BaseOptions baseOptions = new BaseOptions();
         baseOptions.setCapability("platformName","Android");
         baseOptions.setCapability("deviceName", "vivo");
         baseOptions.setCapability("appPackage", "com.xueqiu.android");
         baseOptions.setCapability("appActivity", ".view.WelcomeActivityAlias");
         baseOptions.setCapability("autoGrantPermissions", "true");
-//        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-//        desiredCapabilities.setCapability("platformName", "Android");
-//        desiredCapabilities.setCapability("deviceName", "vivo");
-//        desiredCapabilities.setCapability("appPackage", "com.xueqiu.android");
-//        desiredCapabilities.setCapability("appActivity", ".view.WelcomeActivityAlias");
-//        desiredCapabilities.setCapability("autoGrantPermissions", "true");
+        baseOptions.setCapability("unicodeKeyboard","true"); //使用unicode编码的键盘，可输入中文
 
         URL remoteUrl = new URL("http://localhost:4723/wd/hub");
 
@@ -38,14 +37,19 @@ public class SampleTest {
 
     @Test
     public void sampleTest() {
-//        MobileElement el3 = (MobileElement) driver.findElementById("com.xueqiu.android:id/home_search");
-//        el3.click();
-//        MobileElement el4 = (MobileElement) driver.findElementById("com.xueqiu.android:id/search_input_text");
-//        el4.sendKeys("alibaba");
+        // TODO MobileElement对象被弃用，
+        //  详情见：https://github.com/appium/java-client/blob/master/docs/v7-to-v8-migration-guide.md
         WebElement el3 = driver.findElement(By.id("com.xueqiu.android:id/home_search"));
         el3.click();
         WebElement el4 = driver.findElement(AppiumBy.id("com.xueqiu.android:id/search_input_text"));
-        el4.sendKeys("alibaba");
+        el4.sendKeys("阿里巴巴");
+
+        // double-tap the screen at a specific point 双击屏幕上的某一点(模拟手势操作)
+        // TODO click to see detail: https://appiumpro.com/editions/30-ios-specific-touch-action-methods
+        Map<String, Object> args = new HashMap<>();
+        args.put("x", 100);
+        args.put("y", 200);
+        driver.executeScript("mobile: doubleClickGesture", args);
 
     }
 
