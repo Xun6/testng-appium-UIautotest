@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<suite name="test">
+    <test name="params">
+        <classes>
+            <parameter name="name" value="阿里巴巴"/>
+<!--            <parameter name="name" value="拼多多"/>-->
+
+            <class name="SampleTest"/>
+        </classes>
+    </test>
+</suite>
