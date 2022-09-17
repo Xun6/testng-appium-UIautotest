@@ -1,17 +1,13 @@
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.functions.AppiumFunction;
 import io.appium.java_client.remote.options.BaseOptions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +34,8 @@ public class SampleTest {
 
         driver = new AndroidDriver(remoteUrl, baseOptions);
         driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);  // 添加隐式等待，此为全局等待
-        wait(driver);   // 显示等待，灵活处理弹窗
+        ToWait.wait(driver); // 显示等待，灵活处理弹窗(封装非同一类下)
+//        wait(driver);   // 显示等待，灵活处理弹窗
     }
 
     @Test
@@ -73,7 +70,7 @@ public class SampleTest {
 
 
 //    @Test
-//    @Parameters("name") // 数据驱动,从.xml 文件获取参数
+//    @Parameters("name") // 参数化驱动,从.xml 文件获取参数
 //    public void testParam(String name){
 //        WebElement el3 = driver.findElement(By.id("com.xueqiu.android:id/home_search"));
 //        el3.click();
@@ -104,26 +101,6 @@ public class SampleTest {
         driver.quit();
     }
 
-
-    // ==封装显示等待,处理权限弹窗==
-    private void wait(AndroidDriver driver){
-        // 添加显示等待,超时时间5秒, TODO 用来灵活处理弹窗
-        WebDriverWait webDriverWait = new WebDriverWait(driver,Duration.ofSeconds(5));
-        // 等待直到获取元素或抛出异常
-        try{
-            WebElement element = webDriverWait.until(new AppiumFunction<WebDriver, WebElement>() {
-                @Override
-                public WebElement apply(WebDriver input) {
-                    return input.findElement(By.id("com.xueqiu.android:id/tv_agree"));
-                }
-            });
-            System.out.println("是否定位到元素："+element.isDisplayed());
-            element.click();
-        } catch (Exception e){
-            System.out.println("捕获超时异常，没有找到弹窗元素！");
-            e.printStackTrace();
-        }
-    }
 
 //    // ==方法一： 参数化数据==
 //    @DataProvider(name = "data")

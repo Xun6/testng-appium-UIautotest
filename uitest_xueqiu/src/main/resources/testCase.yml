@@ -1,0 +1,6 @@
+# 按从上到下顺序执行的
+- xpath: "//*[@text='热门']"
+- id: home_search
+- id: search_input_text
+  input: alibaba
+- id: name
