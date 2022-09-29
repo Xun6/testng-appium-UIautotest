@@ -29,6 +29,9 @@ public class SampleTest {
         baseOptions.setCapability("unicodeKeyboard","true"); //使用unicode编码的键盘，可输入中文
         baseOptions.setCapability("resetKeyboard","true"); // 将键盘重置为原始状态
         baseOptions.setCapability("noReset","true"); //不停止应用，不清除数据
+//        baseOptions.setCapability("udid","9a1faa47"); // 指定连接的运行设备
+//        baseOptions.setCapability("chromedriverExecutable",""); //指定版本的chromedriver驱动，当切换到webview页面进行定位时所必要的依赖
+//        baseOptions.setCapability("showChromedriverLog","true"); //打印分析webview时相关的chromedriver日志信息
 
         URL remoteUrl = new URL("http://localhost:4723/wd/hub");
 
@@ -38,6 +41,9 @@ public class SampleTest {
 //        wait(driver);   // 显示等待，灵活处理弹窗
     }
 
+    /**
+     * 断言测试
+     */
     @Test
     public void assertCase(){
         // 通过xpath定位元素
@@ -50,6 +56,10 @@ public class SampleTest {
         System.out.println("<<<<<<<<<");
     }
 
+    /**
+     * 参数化数据测试
+     * @param name
+     */
     @Test(dataProvider = "data")    // 参数化数据
     public void sampleTest(String name) {
         // TODO MobileElement对象被弃用，
@@ -69,6 +79,18 @@ public class SampleTest {
     }
 
 
+    /**
+     * native 切换到 webview 上下文，拓展css方式定位元素
+     */
+    @Test
+    public void test_webview(){
+        driver.findElement(By.xpath("//*[@text='私募']")).click();
+        System.out.println(driver.getContext());  //打印获取的当前上下文名称
+//        driver.context("");  //转换为给定的上下文
+        System.out.println(driver.getContextHandles()); // 获取可用的上下文名称列表
+    }
+
+
 //    @Test
 //    @Parameters("name") // 参数化驱动,从.xml 文件获取参数
 //    public void testParam(String name){
@@ -79,25 +101,29 @@ public class SampleTest {
 //        driver.findElement(By.id("name")).click();
 //    }
 
-//    @Test
-//    public void test_performance(){
-//        // TODO 返回支持读取的系统状态信息类型，如cpu、内存、网络流量和电池
-//        List<String> performanceTypes = driver.getSupportedPerformanceDataTypes();
-//        System.out.println("\n");
-//        System.out.println("------输出系统状态信息类型--------");
-//        for (String per : performanceTypes){
-//            try{
-//                // 返回支持读取的系统状态具体信息，如cpu、内存、网络流量和电池
-//                List<List<Object>> performanceData = driver.getPerformanceData("com.xueqiu.android", per, 5);
-//                System.out.println(performanceData.toString());
-//            }catch (Exception e){
-//                System.out.println(per.toString());
-//            }
-//        }
-//    }
+    /**
+     * 检查手机系统信息测试
+     */
+    @Test
+    public void test_performance(){
+        // TODO 返回支持读取的系统状态信息类型，如cpu、内存、网络流量和电池
+        List<String> performanceTypes = driver.getSupportedPerformanceDataTypes();
+        System.out.println("\n");
+        System.out.println("------输出系统状态信息类型--------");
+        for (String per : performanceTypes){
+            try{
+                // 返回支持读取的系统状态具体信息，如cpu、内存、网络流量和电池
+                List<List<Object>> performanceData = driver.getPerformanceData("com.xueqiu.android", per, 5);
+                System.out.println(performanceData.toString());
+            }catch (Exception e){
+                System.out.println(per.toString());
+            }
+        }
+    }
 
     @AfterTest
-    public void tearDown() {
+    public void tearDown() throws InterruptedException {
+        Thread.sleep(10); //暂停10秒
         driver.quit();
     }
 
