@@ -1,4 +1,4 @@
-package com.Demo;
+package com.Util;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.functions.AppiumFunction;

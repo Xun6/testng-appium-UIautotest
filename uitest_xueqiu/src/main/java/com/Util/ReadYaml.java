@@ -1,3 +1,4 @@
+package com.Util;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -6,7 +7,7 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * 解析yaml文件
+ * 获取并解析yaml文件
  */
 public class ReadYaml {
     public static List<String> readYamlUtil(){
@@ -27,6 +28,6 @@ public class ReadYaml {
 
     //测试
 //    public static void main(String[] args) {
-//        ReadYaml.readYamlUtil();
+//        com.Util.ReadYaml.readYamlUtil();
 //    }
 }

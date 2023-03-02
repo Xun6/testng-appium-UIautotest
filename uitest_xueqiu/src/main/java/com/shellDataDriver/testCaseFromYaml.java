@@ -1,13 +1,12 @@
 package com.shellDataDriver;
 
-import com.Demo.ToWaitIn;
+import com.Util.ToWaitIn;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.options.BaseOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -35,7 +34,6 @@ public class testCaseFromYaml {
         driver = new AndroidDriver(remoteUrl, baseOptions);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);  // 添加隐式等待，此为全局等待
         ToWaitIn.wait(driver);  // 显示等待，灵活处理弹窗
-
     }
 
     // yaml文件数据驱动测试

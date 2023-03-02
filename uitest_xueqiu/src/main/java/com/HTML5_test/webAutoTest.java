@@ -3,6 +3,7 @@ package com.HTML5_test;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.remote.options.BaseOptions;
 import org.openqa.selenium.By;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -10,6 +11,7 @@ import org.testng.annotations.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 /**
  * 纯html5站自动化测试demo
@@ -36,6 +38,7 @@ public class webAutoTest {
         driver.get("https://testerhome.com");
         driver.findElement(By.cssSelector("#mobile-search-form > input")).sendKeys("1231312312");
         System.out.println(driver.getPageSource()); //获取当前界面源
+        System.out.println("============================");
         System.out.println(driver.getWindowHandles());
         System.out.println(driver.getWindowHandle());
     }

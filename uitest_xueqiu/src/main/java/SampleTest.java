@@ -1,3 +1,5 @@
+import com.Util.ReadYaml;
+import com.Util.ToWaitIn;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.options.BaseOptions;
@@ -37,8 +39,7 @@ public class SampleTest {
 
         driver = new AndroidDriver(remoteUrl, baseOptions);
         driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);  // 添加隐式等待，此为全局等待
-        ToWait.wait(driver); // 显示等待，灵活处理弹窗(封装非同一类下)
-//        wait(driver);   // 显示等待，灵活处理弹窗
+        ToWaitIn.wait(driver);// 显示等待，灵活处理弹窗(封装非同一类下)
     }
 
     /**
