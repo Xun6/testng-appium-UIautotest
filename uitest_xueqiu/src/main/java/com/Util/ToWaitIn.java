@@ -30,7 +30,7 @@ public class ToWaitIn {
             element.click();
         } catch (Exception e){
             System.out.println("捕获超时异常，没有找到弹窗元素！");
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 }
